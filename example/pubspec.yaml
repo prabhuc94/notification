@@ -17,7 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  notification:
+  desk_notify:
     # When depending on this package from a real application you should use:
     #   notification: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

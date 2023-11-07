@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:notification/notification.dart';
-import 'package:notification/notification_platform_interface.dart';
-import 'package:notification/notification_method_channel.dart';
+import 'package:desk_notify/notification_platform_interface.dart';
+import 'package:desk_notify/notification_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockNotificationPlatform

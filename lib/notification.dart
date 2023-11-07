@@ -1,3 +1,5 @@
+library notifications;
+
 import 'dart:convert';
 import 'dart:io';
 

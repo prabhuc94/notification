@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
-import 'package:notification/notification.dart';
+import 'package:desk_notify/notification.dart';
 
 void main() {
   runApp(const MyApp());

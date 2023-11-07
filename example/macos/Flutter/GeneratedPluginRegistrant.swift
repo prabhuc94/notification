@@ -5,10 +5,10 @@
 import FlutterMacOS
 import Foundation
 
+import desk_notify
 import flutter_local_notifications
-import notification
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  FlutterLocalNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalNotificationsPlugin"))
   NotificationPlugin.register(with: registry.registrar(forPlugin: "NotificationPlugin"))
+  FlutterLocalNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalNotificationsPlugin"))
 }

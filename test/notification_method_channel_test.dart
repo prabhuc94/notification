@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:notification/notification_method_channel.dart';
+import 'package:desk_notify/notification_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

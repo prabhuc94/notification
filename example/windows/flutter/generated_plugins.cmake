@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  notification
+  desk_notify
   windows_notification
 )
 
