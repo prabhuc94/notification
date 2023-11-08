@@ -3,7 +3,7 @@
 # Run `pod lib lint notification.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'notification'
+  s.name             = 'desk_notify'
   s.version          = '0.0.1'
   s.summary          = 'desktop notification'
   s.description      = <<-DESC
