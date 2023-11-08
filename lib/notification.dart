@@ -1,11 +1,8 @@
 library notifications;
 
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:local_notifier/local_notifier.dart';
 import 'package:windows_notification/notification_message.dart';
 import 'package:windows_notification/windows_notification.dart';
 
@@ -13,21 +10,11 @@ class Notification {
   Notification._() {
     _windowsNotification = WindowsNotification(applicationId: "appname");
     if (Platform.isLinux || Platform.isMacOS) {
-      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-      final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
-        requestSoundPermission: false,
-        requestBadgePermission: false,
-        requestAlertPermission: false,
-        onDidReceiveLocalNotification: _onDidReceiveNotification,
-      );
-      const LinuxInitializationSettings initializationSettingsLinux = LinuxInitializationSettings(defaultActionName: 'Open notification');
-      final InitializationSettings initializationSettings = InitializationSettings(macOS: initializationSettingsDarwin, linux: initializationSettingsLinux);
-      _flutterLocalNotificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: (details) => _onDidReceiveNotification(details.id ?? 0, details.input, details.notificationResponseType.name, details.actionId));
+      localNotifier.setup(appName: (_appName ?? "appname"), shortcutPolicy: ShortcutPolicy.ignore);
     }
   }
 
   late WindowsNotification _windowsNotification;
-  late FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
 
   String? _appName;
 
@@ -39,7 +26,7 @@ class Notification {
 
   static final Notification instance = Notification._();
 
-  void show({required String title, required String message, Map<String, dynamic>? payload}) async {
+  dynamic show({required String title, required String message, String? subTitle, Map<String, dynamic>? payload, List<LocalNotificationAction>? actions}) async {
     if (Platform.isWindows) {
       await _windowsNotification.showNotificationPluginTemplate(
           NotificationMessage.fromPluginTemplate(PageStorageKey(DateTime
@@ -47,15 +34,12 @@ class Notification {
               .millisecondsSinceEpoch
               .toString()).value, title, message, payload: payload ?? {}));
     } else if (Platform.isMacOS || Platform.isLinux) {
-      await _flutterLocalNotificationsPlugin.show(DateTime.now().millisecondsSinceEpoch, title, message, null,payload: jsonEncode(payload));
+      var notificaion = LocalNotification(title: title, subtitle: (subTitle ?? ""), body: (message ?? ""), identifier: (title ?? (message ?? "")), actions: actions, silent: false);
+      notificaion.show();
+      return notificaion;
     }
   }
 
-  void _onDidReceiveNotification(int id, String? title, String? body, String? payload) {
-    if (kDebugMode) {
-      print("DID_NOTIFICATION [$id] [$title] [$body] [$payload]");
-    }
-  }
 }
 
 final notification = Notification.instance;
